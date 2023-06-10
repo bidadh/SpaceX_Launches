@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 val coroutinesVersion = "1.6.4"
 val ktorVersion = "2.2.4"
@@ -46,6 +45,7 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+        @Suppress("UNUSED_VARIABLE")
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
@@ -56,6 +56,7 @@ kotlin {
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
+        @Suppress("UNUSED_VARIABLE")
         val iosMain by creating {
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
@@ -69,6 +70,7 @@ kotlin {
         val iosX64Test by getting
         val iosArm64Test by getting
         val iosSimulatorArm64Test by getting
+        @Suppress("UNUSED_VARIABLE")
         val iosTest by creating {
             dependsOn(commonTest)
             iosX64Test.dependsOn(this)
@@ -83,11 +85,18 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 21
+        @Suppress("DEPRECATION")
         targetSdk = 33
     }
     namespace = "com.jetbrains.handson.android"
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.ideabacker.spacexlaunches.shared.cache"
     }
 }
