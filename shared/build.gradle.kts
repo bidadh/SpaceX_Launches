@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 val coroutinesVersion = "1.6.4"
 val ktorVersion = "2.2.4"
 val sqlDelightVersion = "1.5.5"
@@ -11,7 +13,13 @@ plugins {
 }
 
 kotlin {
-    android()
+    android {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = JavaVersion.VERSION_17.majorVersion
+            }
+        }
+    }
     listOf(
         iosX64(),
         iosArm64(),
@@ -78,4 +86,8 @@ android {
         targetSdk = 33
     }
     namespace = "com.jetbrains.handson.android"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
